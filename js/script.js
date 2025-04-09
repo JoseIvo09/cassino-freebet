@@ -75,7 +75,6 @@ function togglePassword(id, icon) {
 }
 
 function logout() {
-    localStorage.removeItem("loggedInUser");
     hideContent();
     showLoginModal();
 }
@@ -88,15 +87,6 @@ let categories = new Map();
 let favorites = new Set();
 
 document.addEventListener("DOMContentLoaded", () => {
-    const user = JSON.parse(localStorage.getItem("loggedInUser"));
-    if (!user) {
-        showLoginModal();
-    } else {
-        showContent();
-        if (user.username === "lino") {
-            showAdminPanel();
-        }
-    }
     loadGames();
 });
 
@@ -145,13 +135,15 @@ function extractCategories(gameList) {
 }
 
 function populateCategoryFilter() {
-    const categorySelect = document.getElementById('categoryFilter');
+    const categorySelect = document.getElementById("categoryFilter");
     categorySelect.innerHTML = '<option value="">Todas as Categorias</option>' +
-        Array.from(categories.entries()).map(([id, name]) => `<option value="${id}">${name}</option>`).join('');
+        Array.from(categories.entries())
+            .map(([id, name]) => `<option value="${id}">${name}</option>`)
+            .join('');
 }
 
 function displayGames(gameList) {
-    const container = document.getElementById('gameContainer');
+    const container = document.getElementById("gameContainer");
     container.innerHTML = gameList.map(game => `
         <div class="game-card">
             <img src="${game.images.small}" alt="${game.name}" class="game-image">
@@ -164,8 +156,8 @@ function displayGames(gameList) {
 }
 
 function filterGames() {
-    const query = document.getElementById('searchBox').value.toLowerCase();
-    const selectedCategory = document.getElementById('categoryFilter').value;
+    const query = document.getElementById("searchBox").value.toLowerCase();
+    const selectedCategory = document.getElementById("categoryFilter").value;
 
     const filteredGames = games.filter(game =>
         game.name.toLowerCase().includes(query) &&
@@ -183,37 +175,40 @@ function displayFavorites() {
 async function startGame(gameAlias) {
     try {
         const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({ alias: gameAlias, mode: 'demo' })
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({ alias: gameAlias, mode: "demo" })
         });
         if (!response.ok) throw new Error(`Erro: ${response.status}`);
         const data = await response.json();
         if (data.result?.url) {
             const gameUrl = new URL(data.result.url);
             gameUrl.searchParams.set("jurisdiction", "BR");
-            gameUrl.searchParams.set("lobbyUrl", "https%3A%2F%2Fgratisbet.vercel.app%2F");
+            gameUrl.searchParams.set("lobbyUrl", "https%3A%2F%2Ffreebet-psi.vercel.app%2F");
             gameUrl.searchParams.set("lang", "pt");
             gameUrl.searchParams.set("cur", "BRL");
 
             openModal(gameUrl.toString());
         } else {
-            alert('Erro ao iniciar o jogo.');
+            alert("Erro ao iniciar o jogo.");
         }
     } catch (error) {
-        alert('Falha ao iniciar o jogo: ' + error.message);
+        alert("Falha ao iniciar o jogo: " + error.message);
     }
 }
 
 function openModal(gameUrl) {
-    const modal = document.getElementById('gameModal');
-    const iframe = document.getElementById('gameFrame');
-    modal.style.display = 'block';
+    const modal = document.getElementById("gameModal");
+    const iframe = document.getElementById("gameFrame");
+    modal.style.display = "block";
     iframe.src = gameUrl;
 
-    document.querySelector('.close-btn').addEventListener('click', () => {
-        modal.style.display = 'none';
-        iframe.src = 'https://gratisbet.vercel.app/rupp.html';
+    document.querySelector(".close-btn").addEventListener("click", () => {
+        modal.style.display = "none";
+        iframe.src = "https://freebet-psi.vercel.app";
     });
 }
 
@@ -228,11 +223,11 @@ function toggleFavorite(gameAlias) {
 }
 
 function saveFavorites() {
-    localStorage.setItem('favoriteGames', JSON.stringify(Array.from(favorites)));
+    localStorage.setItem("favoriteGames", JSON.stringify(Array.from(favorites)));
 }
 
 function loadFavorites() {
-    const storedFavorites = localStorage.getItem('favoriteGames');
+    const storedFavorites = localStorage.getItem("favoriteGames");
     if (storedFavorites) {
         favorites = new Set(JSON.parse(storedFavorites));
     }
@@ -272,10 +267,7 @@ function saveUser(index) {
     const email = document.querySelector(`.edit-email[data-index="${index}"]`).value;
     const password = document.querySelector(`.edit-password[data-index="${index}"]`).value;
 
-    users[index].username = username;
-    users[index].email = email;
-    users[index].password = password;
-
+    users[index] = { username, email, password };
     localStorage.setItem("users", JSON.stringify(users));
     alert("Usuário atualizado com sucesso!");
 }
