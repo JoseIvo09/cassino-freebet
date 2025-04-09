@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GratisBet</title>
+    <!-- Estilos separados -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- Fonte -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <h1 class="titulo">Meus Jogos</h1>
+      <button id="logoutBtn" class="logout-btn" onclick="logout()">Sair</button>
+    </header>
+
+    <!-- Modal de Login/Cadastro -->
+    <div id="loginModal" class="modal active" aria-modal="true" role="dialog">
+      <div class="modal-content login-content">
+        <h2 id="modalTitle">Login</h2>
+        <form id="authForm" onsubmit="event.preventDefault(); handleLogin();">
+          <input type="text" id="usernameInput" placeholder="Nome de usuário" required />
+          <input type="email" id="emailInput" placeholder="E-mail" required hidden />
+          <div class="password-wrapper">
+            <input type="password" id="repeatPasswordInput" placeholder="Senha" required />
+            <span class="toggle-password" onclick="togglePassword('repeatPasswordInput', this)">👁️</span>
+          </div>
+          <div id="repeatPasswordWrapper" class="password-wrapper" style="display: none;">
+            <input type="password" id="passwordInput" placeholder="Repetir Senha" required />
+            <span class="toggle-password" onclick="togglePassword('passwordInput', this)">👁️</span>
+          </div>
+          <button type="submit" id="loginButton">Entrar</button>
+          <p id="toggleText">
+            Ainda não tem conta? <button type="button" onclick="toggleMode()" class="link">Cadastre-se aqui</button>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Filtros -->
+    <section class="filter-container">
+      <input type="text" id="searchBox" placeholder="Filtrar por nome..." onkeyup="filterGames()" />
+      <select id="categoryFilter" onchange="filterGames()">
+        <option value="">Todas as Categorias</option>
+      </select>
+      <button onclick="displayFavorites()">Mostrar Favoritos</button>
+    </section>
+
+    <!-- Lista de jogos -->
+    <main>
+      <div id="gameContainer" class="game-container"></div>
+    </main>
+
+    <!-- Modal de jogo -->
+    <div id="gameModal" class="modal" aria-hidden="true">
+      <div class="modal-content">
+        <button class="close-btn" onclick="closeGameModal()">×</button>
+        <iframe id="gameFrame" src="" frameborder="0"></iframe>
+      </div>
+    </div>
+
+    <!-- Seção de gerenciamento de usuários (somente admin) -->
+    <section id="userSection" class="user-section" style="display: none;">
+  <h2>Gerenciar Usuários</h2>
+  <table id="userTable">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Password</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+    <script src="js/script.js" defer></script>
+  </body>
+</html>
