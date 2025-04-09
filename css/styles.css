@@ -1,0 +1,378 @@
+/* Reset e base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #9fdca7, #cedad0);
+  color: #000;
+  padding: 20px;
+  min-height: 100vh;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* Título principal */
+.titulo {
+  font-size: 2.25rem;
+  margin: 20px 0;
+}
+
+/* Modal de login */
+#loginModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(15, 15, 15, 0.85);
+  backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+}
+
+#loginModal.active {
+  display: flex;
+}
+
+/* Conteúdo do modal */
+.login-content {
+  background-color: #2c2f48;
+  padding: 40px;
+  border-radius: 16px;
+  text-align: center;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.3s ease;
+}
+
+.login-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+}
+
+/* Inputs */
+.login-content input {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+/* Wrapper para senha */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 42px;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #fff;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s;
+}
+
+.toggle-password:hover {
+  transform: translateY(-50%) scale(1.2);
+}
+
+/* Botões */
+button,
+input[type="submit"],
+.link {
+  background-color: #28a745;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  margin: 6px 0;
+}
+
+button:hover,
+.link:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+/* Link em modo texto */
+.link {
+  background: none;
+  border: none;
+  color: #28a745;
+  text-decoration: underline;
+  font-size: 0.95rem;
+  padding: 0;
+  margin-left: 5px;
+}
+
+/* Botão de logout */
+.logout-btn,
+.sair-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  z-index: 3000;
+}
+
+.logout-btn:hover,
+.sair-btn:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+/* Animação suave para modal */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Seção de usuários */
+.user-section {
+  margin: 20px auto;
+  max-width: 600px;
+  background: #2c2f48;
+  padding: 15px;
+  border-radius: 12px;
+  color: #fff;
+  overflow-x: auto;
+}
+
+#userTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#userTable th,
+#userTable td {
+  padding: 8px;
+  border: 1px solid #444;
+  text-align: center;
+}
+
+#userTable th {
+  background-color: #1f1f1f;
+}
+
+.user-actions button {
+  margin-right: 4px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Container de filtros */
+.filter-container {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.filter-container input,
+.filter-container select {
+  padding: 12px;
+  width: 80%;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 5px;
+  font-size: 16px;
+  background-color: #fff;
+  color: #333;
+  transition: border 0.2s;
+}
+
+.filter-container input:focus,
+.filter-container select:focus {
+  border-color: #28a745;
+  outline: none;
+}
+
+/* Container dos jogos */
+.game-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 5px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.game-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 15px;
+  width: 45%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.game-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.game-image {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.game-title {
+  margin: 10px 0;
+  font-weight: bold;
+  font-size: 18px;
+  color: #444;
+}
+
+.game-categories {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+/* Modal de jogo */
+.modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  position: relative;
+  background: #1f1f1f;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 900px;
+}
+
+.modal iframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+  border-radius: 8px;
+}
+
+/* Botão de fechar */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background-color: #e60000;
+  transform: scale(1.1);
+}
+
+/* Responsividade para a tabela de usuários */
+@media (max-width: 800px) {
+  #userTable,
+  #userTable thead,
+  #userTable tbody,
+  #userTable th,
+  #userTable td,
+  #userTable tr {
+    display: block;
+    width: 100%;
+  }
+
+  #userTable thead {
+    display: none;
+  }
+
+  #userTable tr {
+    margin-bottom: 20px;
+    background-color: #1f1f1f;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  #userTable td {
+    text-align: right;
+    padding-left: 30%;
+    position: relative;
+    border: none;
+    border-bottom: 1px solid #444;
+  }
+
+  #userTable td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+    text-align: left;
+    color: #ccc;
+  }
+
+  .user-actions {
+    text-align: center;
+    margin-top: 10px;
+  }
+}
